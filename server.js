@@ -1,18 +1,12 @@
 const express = require('express');
-const app = express();
+const quotesRouter = require('./routers/quotes');
 
-const { quotes } = require('./data');
-const { getRandomElement } = require('./utils');
+const app = express();
 
 const PORT = process.env.PORT || 4001;
 
 app.use(express.static('public'));
-
-app.get('/api/quotes/random', (req, res) => {
-  res.send({
-    quote: getRandomElement(quotes)
-  })
-})
+app.use('/api/quotes', quotesRouter)
 
 app.listen(PORT, () => {
   console.log(`Listening to port ${PORT}`)
